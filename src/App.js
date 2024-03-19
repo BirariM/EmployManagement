@@ -4,20 +4,21 @@ import Footer from './Components/Footer';
 import Header from './Components/Header';
 import EmployeeList from './Components/EmployeeList';
 import Employee from './Components/Employee';
+import { Container } from 'react-bootstrap';
 
 function App() {
   return (
     <div>
       <BrowserRouter>
         <Header />
-        <div className="container">
+        <Container>
           <Routes>
             <Route path="/" element={<EmployeeList />}></Route>
             <Route path="/employees" element={<EmployeeList />}></Route>
             <Route path="/add-employee" element={<Employee />} ></Route>
             <Route path="/edit-employee/:id" element={<Employee />}></Route>
           </Routes>
-        </div>
+          </Container>
         <Footer />
       </BrowserRouter>
     </div>

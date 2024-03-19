@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { update, create, getById } from "./../Services/Employee";
+import { Button, Card, Container, Form, Row } from "react-bootstrap";
 
 const Employee = () => {
   const { id } = useParams();
@@ -40,60 +41,50 @@ const Employee = () => {
     <>
       <br />
       <br />
-      <div className="container">
-        <div className="row">
-          <div className="card col-md-6 offset-md-3 offset-md-3">
+      <Container>
+        <Row className="justify-content-md-center">
+          <Card style={{ width: '30rem' }}>
             <h2 className="text-center">
               {id ? "Update Employee" : "Add Employee"}
             </h2>
-            <div className="card-body">
-              <form>
-                <div className="form-group mb-2">
-                  <label className="form-label"> First Name :</label>
-                  <input
+            <Card.Body>
+              <Form>
+                <Form.Group className="mb-2">
+                  <Form.Label> First Name :</Form.Label>
+                  <Form.Control
                     type="text"
                     placeholder="Enter first name"
                     name="firstName"
-                    className="form-control"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
                   />
-                </div>
-                <div className="form-group mb-2">
-                  <label className="form-label"> Last Name :</label>
-                  <input
+                </Form.Group>
+                <Form.Group className="mb-2">
+                  <Form.Label> Last Name :</Form.Label>
+                  <Form.Control
                     type="text"
                     placeholder="Enter last name"
                     name="lastName"
-                    className="form-control"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
                   />
-                </div>
-
-                <div className="form-group mb-2">
-                  <label className="form-label"> Email Id :</label>
-                  <input
+                </Form.Group>
+                <Form.Group className="mb-2">
+                  <Form.Label> Email Id :</Form.Label>
+                  <Form.Control
                     type="email"
                     placeholder="Enter email Id"
                     name="email"
-                    className="form-control"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
-                </div>
-                <button
-                  className="btn btn-success"
-                  onClick={(e) => saveOrUpdateEmployee(e)}
-                >
-                  {" "}
-                  Submit{" "}
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
+                </Form.Group>
+                <Button variant="success" onClick={(e) => saveOrUpdateEmployee(e)}>Submit</Button>
+              </Form>
+            </Card.Body>
+          </Card>
+        </Row>
+      </Container>
     </>
   );
 };

@@ -1,40 +1,43 @@
-import React, {useState, useEffect} from 'react';
-import {useNavigate} from 'react-router-dom';
-import {listEmployees, deleteEmployee} from './../Services/Employee';
-import { Container } from 'react-bootstrap';
+import React, {useState, useEffect} from 'react'
+import {useNavigate} from 'react-router-dom'
+import {listEmployees, deleteEmployee} from './../Services/Employee'
+import {Button, ButtonGroup, Container, Table} from 'react-bootstrap'
 
-const EmployeeList = () => {
-  const [employees, setEmployees] = useState([]);
+export default function EmployeeList() {
+  const [employees, setEmployees] = useState([])
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   useEffect(() => {
-    getAllEmployees();
-  }, []);
+    getAllEmployees()
+  }, [])
 
   const getAllEmployees = () => {
     listEmployees()
       .then((res) => setEmployees(res.data))
-      .catch((err) => console.log(err));
-  };
+      .catch((err) => console.log(err))
+  }
 
   const removeEmployee = (employeeId) => {
     deleteEmployee(employeeId)
       .then((res) => getAllEmployees())
-      .catch((err) => console.log(err));
-  };
+      .catch((err) => console.log(err))
+  }
 
   return (
     <Container>
       <br />
       <br />
       <h2 className="text-center"> List Employees </h2>
-      <button
-        className="btn btn-primary mb-2"
+
+      <Button
+        variant="outline-info"
+        className="mb-2"
         onClick={() => navigate('/add-employee')}>
         Add Employee
-      </button>
-      <table className="table table-bordered table-striped">
+      </Button>
+
+      <Table striped bordered hover>
         <thead>
           <tr>
             <th> Employee Id </th>
@@ -44,7 +47,29 @@ const EmployeeList = () => {
             <th> Actions </th>
           </tr>
         </thead>
+        
         <tbody>
+        {/* <tr key="1">
+              <td> 1 </td>
+              <td> Suyash </td>
+              <td> suvare</td>
+              <td>sss.com</td>
+              <td>
+
+              <Button
+                  variant="secondary"
+                  className="me-2"
+                  onClick={() => navigate(`/edit-employee/${1}`)}>
+                  update
+                </Button>
+
+                <Button variant="danger"
+                  onClick={() => removeEmployee(1)}>
+                  Delete
+                </Button>
+                
+              </td>
+            </tr> */}
           {employees.map(({id, firstName, lastName, email}) => (
             <tr key={id}>
               <td> {id} </td>
@@ -52,15 +77,27 @@ const EmployeeList = () => {
               <td>{lastName}</td>
               <td>{email}</td>
               <td>
-                <button className="btn btn-info" onClick={() => navigate(`/edit-employee/${id}`)}>Update</button>
-                <button className="btn btn-danger" onClick={() => removeEmployee(id)} style={{marginLeft: '10px'}}>Delete</button>
+              <ButtonGroup className="mb-2">
+
+              <Button
+                  variant="secondary"
+                  onClick={() => navigate(`/edit-employee/${id}`)} style={{ml: '10px'}}>
+                  update
+                </Button>
+
+                <Button variant="danger"
+                  onClick={() => removeEmployee(id)}>
+                  Delete
+                </Button>
+                
+                </ButtonGroup>
               </td>
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
     </Container>
-  );
-};
+  )
+}
 
-export default EmployeeList;
+
